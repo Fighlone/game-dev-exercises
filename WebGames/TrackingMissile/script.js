@@ -1,11 +1,12 @@
 //准备用canvas做一个导弹
-var canvas = document.getElementById('canvas')
-//宽高自适应
+var canvas = document.getElementById('canvas');
+//宽高自适应 注意！！这里不能在style里面用width:100%这类  这样子会拉伸画布
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 //获取2d contex
 var ctx = canvas.getContext('2d');
 var mouse_x,mouse_y;//鼠标的位置
+var daodans = new Array(); //一大波导弹啊哈哈哈哈哈哈
 //下面需要写一个导弹类
 /**
  * 绘制一个简易的导弹
@@ -81,24 +82,27 @@ function Missile(x,y ,angle){
 //所以打算把导弹move和转向放到setinterval里面
 //然后
 //创建导弹
-var daodan =new Missile(500,500,0);
 //每一帧的渲染操作
 function xuanran(){
+    //考虑到滚动条下移  这里的mouse_x  mouse_y要相对于canvas
+    console.log(canvas.offsetTop);
     //清屏
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    //导弹移动    
-    daodan.move(6);
-    //导弹转向
-    var d =-Math.atan2(mouse_y-daodan.y,mouse_x-daodan.x); //呵呵呵呵
-    if(d<0) d +=2*Math.PI;
-    
-    var delta = d-((Math.PI/2+daodan.h_angle)%(2*Math.PI))       //计算偏移角
-    while(delta>Math.PI){delta -= 2*Math.PI;}
-    while(delta<-Math.PI){delta +=2*Math.PI;}
-    console.log(d+','+delta);
-    daodan.turn(10*delta);
-    //绘制导弹
-    daodan.draw();
+    for(var i =0;i<daodans.length;++i){
+        //导弹移动
+        daodans[i].move(6);
+         //导弹转向
+        var d =-Math.atan2(mouse_y-daodans[i].y,mouse_x-daodans[i].x); //呵呵呵呵
+        if(d<0) d +=2*Math.PI;
+        
+        var delta = d-((Math.PI/2+daodans[i].h_angle)%(2*Math.PI))       //计算偏移角
+        while(delta>Math.PI){delta -= 2*Math.PI;}
+        while(delta<-Math.PI){delta +=2*Math.PI;}
+        //console.log(d+','+delta);
+        daodans[i].turn(5*delta);
+        //绘制导弹
+        daodans[i].draw();
+    }
 }
 window.setInterval(xuanran,25);
 //设置鼠标移动时导弹改变方向以追踪
@@ -106,8 +110,14 @@ canvas.onmousemove = function(ev){
     ev = ev||window.event;
     //console.log(ev.pageX,ev.pageY); //获取鼠标位置
     //我准备让导弹转向的角度和它与鼠标的偏移角度成正比
-    mouse_x = ev.pageX;
-    mouse_y = ev.pageY;
+    mouse_x = ev.pageX-document.documentElement.scrollLeft;
+    mouse_y = ev.pageY-document.documentElement.scrollTop;
+    console.log();
+}
+canvas.onclick = function(){
+    var suiji = Math.random()*1000;
+    var daodan = new Missile(-10,suiji,suiji*100-50);
+    daodans.push(daodan);
 }
 
 // var daodan = new Missile(200,200,90);
