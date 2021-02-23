@@ -1,0 +1,88 @@
+*{
+    margin:0;
+    padding:0;
+}
+.outer{
+    width:250px;
+    height:250px;
+    background:#545454;
+    border-radius:50%;
+    position:relative;
+}
+.middle{
+    width:200px;
+    height:200px;
+    background : #FDE3A8;
+    border-radius : 50%;
+     margin:auto auto;
+     position:absolute;
+     top:0;
+     left:0;
+     right:0;
+     bottom:0;
+
+}
+
+.inner{
+    width:180px;
+    height:180px;
+    border-radius: 100px;
+    background: radial-gradient(circle,yellow,#c3c3c3);
+    position:absolute;
+    margin:auto;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+}
+.center{
+    width:8px;
+    height:8px;
+    background:rgb(240, 142, 14);
+    position:absolute;
+    margin:auto;
+    left:0;
+    right:0;
+    bottom:0;
+    top:0;
+    border-radius:50%;
+
+}
+.hour{
+    width:6px;
+    height:30px;
+    background-color:rgb(41, 160, 207);
+}
+.min{
+    width:4px;
+    height:40px;
+    background-color:rgb(113, 243, 173);
+}
+.second{
+    width:2px;
+    height:50px;
+    background-color:rgb(174, 73, 233);
+}
+.hand{
+    position:absolute;
+    margin:0    auto;
+    bottom:50%;
+    left:0;
+    right:0;
+    transform-origin: bottom center;
+}
+#deg li{
+    width:2px;
+    height:4px;
+    left:3px;       /*hhh*/
+    margin:0;
+    top:-96px;
+    background:#000;
+    position:absolute;
+    list-style:none;
+    transform-origin:center 100px;
+}
+#deg li:nth-child(5n+1){/*妙啊*/
+    height : 10px;
+    background : red;
+}
