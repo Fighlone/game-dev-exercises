@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset = 'utf-8'>
+    <title>用芯献礼活动</title>
+    <style>
+        html{
+            height: 100%
+        }
+        body{
+            padding:0px;
+            margin:0px;
+            background-color: #F6F6F6;
+            height: 100%;
+            overflow-x: hidden;
+            overflow: hidden;
+        }
+        #cas{
+            position: absolute;
+            top:0px;
+            left: 0px;
+        }
+        .contain{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="contain">
+		<canvas id="cas">
+            抱歉，您的浏览器不支持canvas
+        </canvas>
+	</div>
+    <script type = "text/javascript" src = "script.js"></script>
+    <script type = "text/javascript">
+        document.onmousedown = function(e){
+            console.log(e.pageX,e.pageY);
+            
+        }
+        var canvas = document.getElementById("cas"),
+		    ctx = canvas.getContext("2d");
+
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+        var fps = 40;//帧率
+        Animation.Init();
+        var loop = function(){//循环
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            Animation.Update(10/100);
+            setTimeout(loop,1000/fps);
+         };
+        loop();
+
+    </script>
+</body>
+
+</html>
